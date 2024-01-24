@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import date as DATE
 
+# Import for scraping dynamic web pages
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
 team1 = 'South Africa'
 team2 = 'Tunisia'
 
@@ -129,4 +133,45 @@ def mrfixitstips(team1: str, team2: str):
         print('[Error]: ', error)
         return None
     
-mrfixitstips(team1, team2)
+# mrfixitstips(team1, team2)
+
+
+def football_whispers(team1: str, team2: str):
+    team1 = team1.lower().replace(' ', '-')
+    team2 = team2.lower().replace(' ', '-')
+
+    URL = f"https://footballwhispers.com/blog/{team1}-vs-{team2}-prediction/"
+
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run Chrome in headless mode (without GUI)
+
+    # Create a Chrome webdriver
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get(URL)
+
+    # Wait for the page to load (you may need to adjust the waiting time)
+    driver.implicitly_wait(5)
+
+    # Extract the content after JavaScript execution
+    dynamic_content = driver.page_source
+    print(dynamic_content)
+
+    try:
+        soup = BeautifulSoup(dynamic_content, "html.parser")
+
+        try:
+            page_not_found = soup.find(class_="football-container-header-single").find("h1")
+            if page_not_found.text.lower() == "not found":
+                print(False)
+                return False
+        except:
+            pass
+    
+        prediction1 = soup.find(class_="tip_tip")
+        # prediction2 = soup.find(class_="sc-10cwpmp-3")
+        print(prediction1)
+    except Exception as error:
+        print('[Error]: ', error)
+        return None
+    
+# football_whispers(team1, team2)
