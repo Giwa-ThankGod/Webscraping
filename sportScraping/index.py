@@ -96,4 +96,37 @@ def scores_24(team1: str, team2: str):
         print('[Error]: ', error)
         return None
     
-scores_24(team1, team2)
+# scores_24(team1, team2)   
+
+
+def mrfixitstips(team1: str, team2: str):
+    team1 = team1.lower().replace(' ', '-')
+    team2 = team2.lower().replace(' ', '-')
+
+    URL = f"https://mrfixitstips.co.uk/previews/{team1}-vs-{team2}-prediction-and-betting-tips/"
+
+    try:
+        page = requests.get(URL)
+
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        try:
+            page_not_found = soup.find(class_="page-title")
+            if "404" in page_not_found.text.lower():
+                print(False)
+                return False
+        except:
+            pass
+    
+        predictions_tag = soup.find_all(class_="row alt_colors")
+        predictions = []
+        for prediction in predictions_tag:
+            predictions.append(prediction.find(class_="col-md-6").find("strong").text)
+        
+        print(predictions)
+        return predictions
+    except Exception as error:
+        print('[Error]: ', error)
+        return None
+    
+mrfixitstips(team1, team2)
