@@ -43,7 +43,7 @@ def free_super_tips(team1: str, team2: str):
 
 def mighty_tips(team1: str, team2: str):
     team1 = team1.lower().split(' ')[0]
-    team1 = team1.lower().split(' ')[0]
+    team2 = team2.lower().split(' ')[0]
     date = DATE.today().strftime('%d-%m-%Y')
     # print(date)
 
