@@ -175,3 +175,33 @@ def football_whispers(team1: str, team2: str):
         return None
     
 # football_whispers(team1, team2)
+    
+def thehardtackle(team1: str, team2: str) -> str:
+    team1 = team1.lower().replace(' ', '-')
+    team2 = team2.lower().replace(' ', '-')
+    date = DATE.today().strftime('%Y/%m/%d')
+    print(date)
+
+    URL = f"https://thehardtackle.com/round-up/{date}/{team1}-vs-{team2}-preview-and-prediction/"
+
+    try:
+        page = requests.get(URL)
+
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        try:
+            page_not_found = soup.find(class_="jeg_archive_title")
+            if page_not_found.text.lower() == 'page not found':
+                print(False)
+                return False
+        except:
+            pass
+    
+        predictions_tag = soup.find(class_="content-inner").find_all("h4")[-1]
+        print(predictions_tag.text)
+        return predictions_tag.text
+    except Exception as error:
+        print('[Error]: ', error)
+        return None
+    
+thehardtackle('Leeds United', 'Norwich City')
