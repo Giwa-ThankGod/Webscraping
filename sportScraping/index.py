@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import date as DATE
 
-team1 = 'Mauritania'
-team2 = 'Algeria'
+team1 = 'South Africa'
+team2 = 'Tunisia'
 
 def free_super_tips(team1: str, team2: str): 
     team1 = team1.lower().replace(' ', '-')
@@ -68,4 +68,32 @@ def mighty_tips(team1: str, team2: str):
         print('[Error]: ', error)
         return None
 
-mighty_tips(team1, team2)
+# mighty_tips(team1, team2)
+    
+def scores_24(team1: str, team2: str):
+    team1 = team1.lower().replace(' ', '-')
+    team2 = team2.lower().replace(' ', '-')
+    date = DATE.today().strftime('%d-%m-%Y')
+    # print(date)
+
+    URL = f"https://scores24.live/en/soccer/m-{date}-{team1}-{team2}-prediction"
+    try:
+        page = requests.get(URL)
+
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        page_not_found = soup.find(class_="sc-12l8pnt-1")
+        if page_not_found:
+            print(False)
+            return False
+    
+        prediction = soup.find(class_="sc-10cwpmp-2")
+        prediction_odd = soup.find(class_="sc-10cwpmp-3")
+        print(prediction.text)
+        print(prediction_odd.text)
+        return {'prediction': prediction.text, 'odds': prediction_odd.text}
+    except Exception as error:
+        print('[Error]: ', error)
+        return None
+    
+scores_24(team1, team2)
