@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Sport Prediction</h2>
+
+        <form action="{{ url_for('prediction') }}" method="post">
+            <input type="text" class="form-control mb-2" name="team1" required>
+            <input type="text" class="form-control mb-2" name="team2" required>
+            <button class="btn btn-block btn-primary">Check Predition</button>
+        </form>
+
+        <hr>
+        <h4>TEAMS: {{ data['team1'] }} vs {{ data['team2'] }}</h4>
+        <!-- <p>{{ data['predictions'] }}</p> -->
+        <hr>
+        <div class="card-border-none">
+            {% if data['predictions'] %}
+                {% for prediction in data['predictions'] %}
+                    <div class="row">
+                        <h5 class="col-md-6 f-16">{{ prediction['title'] }}</h5>
+                        {% if prediction['prediction'] is none %}
+                            <div class="col-md-6 f-16">{{ prediction['prediction'] }}</div>
+                        {% else %}
+                            <div class="col-md-6 f-16">{{ prediction['prediction'] | join(' | ') }}</div>
+                        {% endif %}
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+</body>
+</html>
