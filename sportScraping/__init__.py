@@ -9,15 +9,16 @@ def predictions(team1, team2):
     e = thehardtackle(team1, team2)
 
     message = f"""
-    PREDICTIONS:\n
+    PREDICTIONS:
+    Teams: {team1} vs {team2}\n
     freesupertips: {a},\n
     migthytips: {b},\n
     mrfixitstips: {c},\n
     scores24: {d},\n
-    thehardtackle: {e},
+    thehardtackle: {e}
     """
 
     send_whatsapp_msg("+2348055287181", message)
 
 if __name__ == "__main__":
-    predictions("Zambia","Morocco")
+    predictions("Bournemouth","Swansea")
