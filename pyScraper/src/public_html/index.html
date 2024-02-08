@@ -17,25 +17,26 @@
         </form>
 
         <hr>
-        <h4>TEAMS: {{ data['team1'] }} vs {{ data['team2'] }}</h4>
-        <!-- <p>{{ data['predictions'] }}</p> -->
-        <hr>
-        <div class="card-border-none">
-            {% if data['predictions'] %}
-                {% for prediction in data['predictions'] %}
-                    <div class="row">
-                        <h5 class="col-md-6 f-16">{{ prediction['title'] }}</h5>
-                        {% if prediction['prediction'] is none %}
-                            <div class="col-md-6 f-16">{{ prediction['prediction'] }}</div>
-                        {% else %}
-                            <div class="col-md-6 f-16">{{ prediction['prediction'] | join(' | ') }}</div>
-                        {% endif %}
-                    </div>
-                    <hr>
-                {% endfor %}
-            {% endif %}
-        </div>
-
+        {% if data %}
+            <h4>TEAMS: {{ data['team1'] }} vs {{ data['team2'] }}</h4>
+        
+            <hr>
+            <div class="card-border-none">
+                {% if data['predictions'] %}
+                    {% for prediction in data['predictions'] %}
+                        <div class="row">
+                            <h5 class="col-md-6 f-16">{{ prediction['title'] }}</h5>
+                            {% if prediction['prediction'] is none %}
+                                <div class="col-md-6 f-16">{{ prediction['prediction'] }}</div>
+                            {% else %}
+                                <div class="col-md-6 f-16">{{ prediction['prediction'] | join(' | ') }}</div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
