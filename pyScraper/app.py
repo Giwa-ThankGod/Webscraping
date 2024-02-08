@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 import sys
-sys.path.append('C:\Webscraping\sportScraping')
+sys.path.append('C:\Webscraping\pyScraper')
 from index import free_super_tips, mrfixitstips, mighty_tips, thehardtackle, scores_24
 
-app = Flask(__name__, template_folder="public_html")
+app = Flask(__name__, template_folder="templates")
 
 @app.route('/')
 def index():
