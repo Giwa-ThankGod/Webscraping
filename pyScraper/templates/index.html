@@ -11,8 +11,8 @@
         <h2>Sport Prediction</h2>
 
         <form action="{{ url_for('prediction') }}" method="post">
-            <input type="text" class="form-control mb-2" name="team1" required>
-            <input type="text" class="form-control mb-2" name="team2" required>
+            <input type="text" class="form-control mb-2" name="team1" placeholder="team1" required>
+            <input type="text" class="form-control mb-2" name="team2" placeholder="team2" required>
             <button class="btn btn-block btn-primary">Check Predition</button>
         </form>
 
