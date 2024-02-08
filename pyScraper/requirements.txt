@@ -3,4 +3,7 @@ MechanicalSoup==1.2.0
 requests==2.30.0
 urllib3==2.0.2
 gunicorn
+<<<<<<< HEAD
 flask
+=======
+>>>>>>> 5180262f28806fb6169b055c5d2c68f28c05585c
