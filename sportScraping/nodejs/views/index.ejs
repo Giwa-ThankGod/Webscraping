@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Add other CSS or JS links as needed -->
+  <title>Sport Prediction</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Sport Prediction</h2>
+
+        <div class="card-border-none">
+            <form action="/prediction" method="post">
+                <input type="text" class="form-control mb-2" name="team1" value="<%= data.team1 %>" placeholder="team1: Atletico Madrid" required>
+                <input type="text" class="form-control mb-2" name="team2" value="<%= data.team2 %>" placeholder="team2: Athletic Bilbao" required>
+                <p class="text-center">
+                    <button class="btn btn-block btn-primary">Check Predictions</button>
+                </p>
+            </form>
+        </div>
+
+        <hr>
+        <% if (data) { %>
+            <h3>TEAMS: <%= data.team1 %> vs <%= data.team2 %></h3>
+            <div class="card-border-none bg-light p-3">
+                <% data.predictions.forEach((prediction) => { %>
+                    <h4><%= prediction.title %></h4>
+            
+                    <% if (prediction.predictions !== null) { %>
+                        <% prediction.predictions.forEach(prediction => { %>
+                            <span class="col-md-6 f-16">| <%= prediction %> |</span>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="col-md-6 f-16">No predictions available</div>
+                    <% } %>
+                    <hr>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No predictions available.</p>
+        <% } %>
+
+    </div>
+</body>
+</html>
